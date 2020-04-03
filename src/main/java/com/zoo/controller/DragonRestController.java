@@ -35,23 +35,23 @@ public class DragonRestController {
     @PostMapping
     public ResponseEntity<?> addDragon(@RequestBody DragonDTO dragonDto) {
         Dragon dragon = ObjectMapperUtils.map(dragonDto, Dragon.class);
-        service.create(dragon);
-        return new ResponseEntity("Dragon added successfully", HttpStatus.OK);
+        Dragon dragonCreated = service.create(dragon);
+        return new ResponseEntity(ObjectMapperUtils.map(dragonCreated,DragonDTO.class), HttpStatus.OK);
     }
 
     @CrossOrigin
     @PutMapping(value = "/{id}")
     public ResponseEntity<?> updateDragon(@PathVariable String id, @RequestBody DragonDTO dragonDto) {
         Dragon dragon = ObjectMapperUtils.map(dragonDto, Dragon.class);
-        service.update(dragon);
-        return new ResponseEntity("Dragon updated successfully", HttpStatus.OK);
+        Dragon dragonUpdated = service.update(dragon);
+        return new ResponseEntity(ObjectMapperUtils.map(dragonUpdated,DragonDTO.class), HttpStatus.OK);
     }
 
     @CrossOrigin
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<?> delete(@PathVariable String id) {
         service.delete(id);
-        return new ResponseEntity("Dragon deleted successfully", HttpStatus.OK);
+        return new ResponseEntity(HttpStatus.OK);
     }
 
 
